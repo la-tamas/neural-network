@@ -1,0 +1,44 @@
+# depslib dependency file v1.0
+1728492715 source:c:\users\tamas\documents\c++\neural\gui-nn\main.cpp
+	<iostream>
+	<tchar.h>
+	<windows.h>
+	"nn.hpp"
+	"utils.hpp"
+	<raylib.h>
+
+1728489690 c:\users\tamas\documents\c++\neural\gui-nn\nn.hpp
+	<vector>
+	<fstream>
+	"matrix.hpp"
+	"layer.hpp"
+
+1728494283 c:\users\tamas\documents\c++\neural\gui-nn\matrix.hpp
+	<vector>
+	<math.h>
+
+1728489700 c:\users\tamas\documents\c++\neural\gui-nn\layer.hpp
+
+1728484691 c:\users\tamas\documents\c++\neural\gui-nn\utils.hpp
+	<raylib.h>
+	<vector>
+	<stdlib.h>
+	<stdint.h>
+	<timeapi.h>
+	"file.hpp"
+
+1700070850 c:\raylib\raylib\src\raylib.h
+	<stdarg.h>
+	<stdbool.h>
+
+1728488447 c:\users\tamas\documents\c++\neural\gui-nn\file.hpp
+	<math.h>
+	<stdio.h>
+	"stb_image_resize.h"
+	"utils.hpp"
+
+1728487857 c:\users\tamas\documents\c++\neural\gui-nn\stb_image_resize.h
+	<assert.h>
+	<stdlib.h>
+	<stdint.h>
+
