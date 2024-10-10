@@ -1,0 +1,37 @@
+{
+    "configurations": [
+        {
+            "name": "Neural Network",
+            "includePath": [
+                "C:\\raylib\\raylib\\src\\**",
+                "C:\\raylib\\raylib\\src\\external\\**",
+                "C:\\raylib\\raylib\\src\\external\\glfw\\include\\**",
+                "C:\\raylib\\w64devkit\\x86_64-w64-mingw32\\include\\**",
+                "${workspaceRoot}"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "C:\\raylib\\w64devkit\\bin\\g++.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "browse": {
+                "path": [
+                    "C:\\raylib\\raylib\\src",
+                    "C:\\raylib\\raylib\\src\\external",
+                    "C:\\raylib\\raylib\\src\\external\\glfw\\include",
+                    "C:\\raylib\\w64devkit\\x86_64-w64-mingw32\\include",
+                    "${workspaceRoot}"
+                ]
+            },
+            "defines": [
+                "PLATFORM_DESKTOP"
+            ],
+            "compilerArgs": [
+                "-municode",
+                "-lwinmm",
+                "-lraylib",
+                "C:\\raylib\\raylib\\src\\libraylib.a"
+            ]
+        }
+    ],
+    "version": 4
+}
