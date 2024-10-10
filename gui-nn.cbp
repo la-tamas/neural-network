@@ -12,14 +12,23 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++17" />
+					<Add option="-std=c17" />
+					<Add option="-m64" />
 					<Add option="-g" />
+					<Add option="-DPLATFORM_DESKTOP" />
+					<Add option="-DWINAPI_PARTITION_DESKTOP" />
 					<Add directory="C:/raylib/raylib/src" />
-					<Add directory="C:/msys64/ucrt64/include" />
 					<Add directory="C:/raylib/raylib/src/external/glfw/include" />
 					<Add directory="C:/raylib/raylib/src/external" />
+					<Add directory="C:/raylib/w64devkit/x86_64-w64-mingw32/include" />
 				</Compiler>
 				<Linker>
+					<Add option="-m64" />
 					<Add option="-municode" />
+					<Add option="-lwinmm" />
+					<Add option="-lraylib" />
+					<Add library="C:/raylib/raylib/src/libraylib.a" />
 				</Linker>
 				<Environment>
 					<Variable name="PLATFORM" value="PLATFORM_DESKTOP" />
@@ -32,9 +41,19 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++17" />
+					<Add option="-std=c17" />
+					<Add directory="C:/raylib/raylib/src" />
+					<Add directory="C:/raylib/raylib/src/external/glfw/include" />
+					<Add directory="C:/raylib/raylib/src/external" />
+					<Add directory="C:/raylib/w64devkit/x86_64-w64-mingw32/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-municode" />
+					<Add option="-lwinmm" />
+					<Add option="-lraylib" />
+					<Add library="C:/raylib/raylib/src/libraylib.a" />
 				</Linker>
 			</Target>
 		</Build>
@@ -46,18 +65,23 @@
 			<Add library="user32" />
 			<Add library="kernel32" />
 			<Add library="comctl32" />
+			<Add library="winmm" />
+			<Add library="raylib" />
+			<Add library="msvcrt" />
+			<Add library="shell32" />
+			<Add library="opengl32" />
+			<Add library="mingw32" />
 		</Linker>
-		<Unit filename="basewin.h" />
 		<Unit filename="datasets/t10k-images.idx3-ubyte" />
 		<Unit filename="datasets/t10k-labels.idx1-ubyte" />
 		<Unit filename="datasets/train-images.idx3-ubyte" />
 		<Unit filename="datasets/train-labels.idx1-ubyte" />
-		<Unit filename="file.hpp" />
 		<Unit filename="layer.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="matrix.hpp" />
 		<Unit filename="nn.hpp" />
-		<Unit filename="stb_image_resize.h" />
+		<Unit filename="raygui.h" />
+		<Unit filename="ui.hpp" />
 		<Unit filename="utils.hpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
