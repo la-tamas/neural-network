@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1728557821 source:c:\users\tamas\documents\c++\neural\gui-nn\main.cpp
+1728566580 source:c:\users\tamas\documents\c++\neural\gui-nn\main.cpp
 	<vector>
 	<stdlib.h>
 	<time.h>
@@ -2154,7 +2154,7 @@
 	<stdarg.h>
 	<math.h>
 
-1728557731 c:\users\tamas\documents\c++\neural\gui-nn\ui.hpp
+1728566582 c:\users\tamas\documents\c++\neural\gui-nn\ui.hpp
 	<raylib.h>
 	<vector>
 	<string>

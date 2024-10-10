@@ -66,7 +66,6 @@
 			<Add library="kernel32" />
 			<Add library="comctl32" />
 			<Add library="winmm" />
-			<Add library="raylib" />
 			<Add library="msvcrt" />
 			<Add library="shell32" />
 			<Add library="opengl32" />

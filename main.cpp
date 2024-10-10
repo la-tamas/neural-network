@@ -70,6 +70,8 @@ int wmain()
     Texture tex = LoadTextureFromImage(dset_train.images[0]);
     ui.set_texture(&tex);
 
+    int data_index = 0;
+
     while (!WindowShouldClose()) {
         ui.handle_inputs();
 
@@ -80,6 +82,7 @@ int wmain()
                     nn.trained++;
                         if (nn.trained >= 5) {
                             ui.set_state(UI::IDLE);
+                            ui.training = false;
                             ui.message("Model trained!");
                             break;
                     }
@@ -101,13 +104,10 @@ int wmain()
 
             case UI::TESTING:
             {
-                static int data_index = 0;
-
                 if (data_index == dset_test.count()) {
                     ui.set_state(UI::IDLE);
-                    ui.message("Model trained!");
+                    ui.message("Jumped to next test!");
                     data_index = 0;
-                    break;
                 }
 
                 Image img = dset_test.images[data_index];

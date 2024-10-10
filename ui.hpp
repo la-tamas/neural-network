@@ -47,6 +47,8 @@ class UI {
   void draw_texture();
   void draw_drawing_canvas();
 
+  bool training = true;
+
 private:
   Color _interpolated_color(Color from, Color to, float weight);
   void _update_area();
@@ -58,7 +60,6 @@ private:
   void _check_box(Rectangle area, const char* label, bool* active);
 
   State state = State::IDLE;
-  bool training = true;
 
   NN* nn = nullptr;
   DsMinist* dset_train = nullptr;
