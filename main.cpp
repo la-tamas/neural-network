@@ -4,22 +4,34 @@
     #define UNICODE
 #endif
 
+#include <vector>
+#include <stdlib.h>
+#include <time.h>
 #include <iostream>
 
-#include <tchar.h>
-#include <windows.h>
+#define Matrix RaylibMatrix
+  #include <raylib.h>
+  #include <raymath.h>
+  #define RAYGUI_IMPLEMENTATION
+  #include "raygui.h"
+  #undef RAYGUI_IMPLEMENTATION
+#undef Matrix
 
-#include "nn.hpp"
-#include "utils.hpp"
+// #include "basewin.h"
 
-namespace raylib {
-    #include <raylib.h>
-}
+#define SINGLE_SOURCE_IMPL
+  #include "matrix.hpp"
+  #include "nn.hpp"
+  #include "utils.hpp"
+  #include "ui.hpp"
+#undef SINGLE_SOURCE_IMPL
+
+typedef unsigned int UINT;
 
 using namespace std;
 
-const int windowWidth = 800;
-const int windowHeight = 600;
+const int width = 800;
+const int height = 600;
 
 float error(NN_Matrix& out, NN_Matrix& exp);
 
@@ -39,7 +51,7 @@ float train(NN & nn, Dataset& dataset, int index) {
     return cost;
 }
 
-int main()
+int wmain()
 {
     DsMinist dset_train(
         "./datasets/train-labels.idx1-ubyte",
@@ -51,57 +63,133 @@ int main()
         "./datasets/t10k-images.idx3-ubyte"
     );
 
-    // raylib::InitWindow(windowWidth, windowHeight, "Neural Network");
+    // InitWindow(width, height, "Neural Network");
 
     NN nn({ 784, 20, 10, 10 }, { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
 
-    while (true) {
-        if (nn.data_index == dset_train.count()) {
-            nn.trained++;
-            if (nn.trained >= 3) { // TODO: parameterize number 3.
-                cout << "Model trained." << endl;
+    UI ui(&nn, &dset_train, &dset_test);
+
+    Texture tex = LoadTextureFromImage(dset_train.images[0]);
+    ui.set_texture(&tex);
+
+    while (!WindowShouldClose()) {
+        ui.handle_inputs();
+
+        switch (ui.get_state()) {
+            case UI::TRAINING:
+            {
+                if (nn.data_index == dset_train.count()) {
+                    nn.trained++;
+                        if (nn.trained >= 3) { // TODO: parameterize number 3.
+                            ui.set_state(UI::IDLE);
+                            // TODO: ui.training = false;
+                            ui.message("Model trained!");
+                            break;
+                    }
+                    nn.data_index = 0;
+                }
+
+                Image img = dset_train.images[nn.data_index];
+                if (IsTextureReady(tex)) UnloadTexture(tex);
+
+                tex = LoadTextureFromImage(img);
+                ui.set_texture(&tex);
+
+                float cost = train(nn, dset_train, nn.data_index);
+                ui.push_error(cost);
+
+                nn.data_index++;
                 break;
             }
-            nn.data_index = 0;
+
+            case UI::TESTING:
+            {
+                static int data_index = 0;
+
+                if (data_index == dset_test.count()) {
+                    ui.set_state(UI::IDLE);
+                    ui.message("Model trained!");
+                    data_index = 0;
+                    break;
+                }
+
+                Image img = dset_test.images[data_index];
+                if (IsTextureReady(tex)) UnloadTexture(tex);
+
+                tex = LoadTextureFromImage(img);
+                ui.set_texture(&tex);
+
+                NN_Matrix expected = dset_test.get_output(data_index);
+                nn.forward(dset_test.get_input(data_index));
+                data_index++;
+                break;
+            }
         }
 
-        float cost = train(nn, dset_train, nn.data_index);
+        ui.update();
 
-        cout << "Training >> " << nn.data_index << " | Cost: " << cost << endl;
+        BeginDrawing();
+        {
+            ClearBackground(RAYWHITE);
 
-        nn.data_index++;
+            ui.render();
+        }
+        EndDrawing();
     }
 
-    int data_index = 0;
-    int error_count = 0;
+    if (IsTextureReady(tex)) UnloadTexture(tex);
 
-    while (true) {
-        if (data_index == dset_test.count()) {
-            data_index = 0;
-            break;
-        }
+    ui.cleanup();
+    CloseWindow();
 
-        NN_Matrix expected = dset_test.get_output(data_index);
+    // while (true) {
+    //    if (nn.data_index == dset_train.count()) {
+    //        nn.trained++;
+    //        if (nn.trained >= 3) { // TODO: parameterize number 3.
+    //            cout << "Model trained." << endl;
+    //            break;
+    //        }
+    //        nn.data_index = 0;
+    //    }
 
-        nn.forward(dset_test.get_input(data_index));
+    //    float cost = train(nn, dset_train, nn.data_index);
 
-        NN_Matrix result = nn.get_outputs();
+    //    cout << "Training >> " << nn.data_index << " | Cost: " << cost << endl;
 
-        int expectedNumber = expected.indexOfMax();
-        int resultNumber = result.indexOfMax();
+    //    nn.data_index++;
+    // }
 
-        if (expectedNumber != resultNumber) {
-            error_count++;
-        }
+    // int data_index = 0;
+    // int error_count = 0;
 
-        cout << "Expected: " << expectedNumber << " | Result: " << resultNumber << endl;
+    // while (true) {
+    //    if (data_index == dset_test.count()) {
+    //        data_index = 0;
+    //        break;
+    //    }
 
-        data_index++;
-    }
+    //    NN_Matrix expected = dset_test.get_output(data_index);
 
-    float accuracy = (dset_test.count() - error_count) / dset_test.count();
+    //    nn.forward(dset_test.get_input(data_index));
 
-    cout << "Accuracy: " << accuracy << endl;
+    //    NN_Matrix result = nn.get_outputs();
 
-    return 0;
+    //    int expectedNumber = expected.indexOfMax();
+    //    int resultNumber = result.indexOfMax();
+
+    //    if (expectedNumber != resultNumber) {
+    //        error_count++;
+    //    }
+
+    //    cout << "Expected: " << expectedNumber << " | Result: " << resultNumber << endl;
+
+    //    data_index++;
+    // }
+
+    // float accuracy = ((dset_test.count() - error_count) / dset_test.count() * 100);
+
+    // cout << "Accuracy: ";
+    // printf("%.6f \n", accuracy);
+
+    // return 0;
 }

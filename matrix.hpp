@@ -3,8 +3,12 @@
 #ifndef MATRIX_HPP_INCLUDED
 #define MATRIX_HPP_INCLUDED
 
-#include <vector>
+#define assert(cond)             \
+  do {                           \
+    if (!(cond)) __debugbreak(); \
+  } while (false)
 
+#include <vector>
 #include <math.h>
 
 typedef float matrix_t;

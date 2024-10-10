@@ -23,28 +23,6 @@ typedef unsigned char *(*LoadFileDataCallback)(const char *fileName, unsigned in
 
 static LoadFileDataCallback loadFileData = NULL;    // LoadFileData callback function pointer
 
-typedef struct Vector4 {
-    float x;                // Vector x component
-    float y;                // Vector y component
-    float z;                // Vector z component
-    float w;                // Vector w component
-} Vector4;
-
-typedef struct Color {
-    unsigned char r;        // Color red value
-    unsigned char g;        // Color green value
-    unsigned char b;        // Color blue value
-    unsigned char a;        // Color alpha value
-} Color;
-
-typedef struct Image {
-    void *data;             // Image raw data
-    int width;              // Image base width
-    int height;             // Image base height
-    int mipmaps;            // Mipmap levels, 1 by default
-    int format;             // Data format (PixelFormat type)
-} Image;
-
 // Load data from file into a buffer
 unsigned char *LoadFileData(const char *fileName, unsigned int *bytesRead)
 {

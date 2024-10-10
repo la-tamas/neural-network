@@ -13,7 +13,17 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="C:/raylib/raylib/src" />
+					<Add directory="C:/msys64/ucrt64/include" />
+					<Add directory="C:/raylib/raylib/src/external/glfw/include" />
+					<Add directory="C:/raylib/raylib/src/external" />
 				</Compiler>
+				<Linker>
+					<Add option="-municode" />
+				</Linker>
+				<Environment>
+					<Variable name="PLATFORM" value="PLATFORM_DESKTOP" />
+				</Environment>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/gui-nn" prefix_auto="1" extension_auto="1" />
@@ -37,7 +47,18 @@
 			<Add library="kernel32" />
 			<Add library="comctl32" />
 		</Linker>
+		<Unit filename="basewin.h" />
+		<Unit filename="datasets/t10k-images.idx3-ubyte" />
+		<Unit filename="datasets/t10k-labels.idx1-ubyte" />
+		<Unit filename="datasets/train-images.idx3-ubyte" />
+		<Unit filename="datasets/train-labels.idx1-ubyte" />
+		<Unit filename="file.hpp" />
+		<Unit filename="layer.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="matrix.hpp" />
+		<Unit filename="nn.hpp" />
+		<Unit filename="stb_image_resize.h" />
+		<Unit filename="utils.hpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

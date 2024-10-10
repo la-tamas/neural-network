@@ -3,34 +3,13 @@
 #ifndef UTILS_HPP_INCLUDED
 #define UTILS_HPP_INCLUDED
 
-namespace aux {
-    const int PIXELFORMAT_UNCOMPRESSED_GRAYSCALE = 1;
-    const int PIXELFORMAT_UNCOMPRESSED_GRAY_ALPHA = 2;
-    const int PIXELFORMAT_UNCOMPRESSED_R5G6B5 = 3;
-    const int PIXELFORMAT_UNCOMPRESSED_R8G8B8 = 4;
-    const int PIXELFORMAT_UNCOMPRESSED_R5G5B5A1 = 5;
-    const int PIXELFORMAT_UNCOMPRESSED_R4G4B4A4 = 6;
-    const int PIXELFORMAT_UNCOMPRESSED_R8G8B8A8 = 7;
-    const int PIXELFORMAT_UNCOMPRESSED_R32 = 8;
-    const int PIXELFORMAT_UNCOMPRESSED_R32G32B32 = 9;
-    const int PIXELFORMAT_UNCOMPRESSED_R32G32B32A32 = 10;
-    const int PIXELFORMAT_COMPRESSED_DXT1_RGB = 11;
-    const int PIXELFORMAT_COMPRESSED_DXT3_RGBA = 13;
-    const int PIXELFORMAT_COMPRESSED_ASTC_8x8_RGBA = 21;
-    const int PIXELFORMAT_UNCOMPRESSED_R5G5B5A1_ALPHA_THRESHOLD = 50;
-    const int LOG_WARNING = 4;
-}
-
-namespace raylib {
-    #include <raylib.h>
-}
+#include <raylib.h>
 
 #include <vector>
 #include <stdlib.h>
 #include <stdint.h>
-#include <timeapi.h>
 
-#include "file.hpp"
+//using namespace raylib;
 
 typedef Image GrayImage;
 
@@ -44,7 +23,7 @@ GrayImage gen_image_gray(int width, int height, data_t* data) {
     image.data = pixels;
     image.width = width;
     image.height = height;
-    image.format = aux::PIXELFORMAT_UNCOMPRESSED_GRAYSCALE;
+    image.format = PIXELFORMAT_UNCOMPRESSED_GRAYSCALE;
     image.mipmaps = 1;
     return image;
 }
@@ -139,7 +118,7 @@ DsMinist::DsMinist(const char* path_labels, const char* path_images) {
 
   // Load the labels.
   {
-    unsigned int bytes_read;
+    int bytes_read;
     data_t* data = LoadFileData(path_labels, &bytes_read);
     data_t* ptr = data;
 
@@ -160,7 +139,7 @@ DsMinist::DsMinist(const char* path_labels, const char* path_images) {
 
   // Load the imges.
   {
-    unsigned int bytes_read;
+    int bytes_read;
     data_t* data = LoadFileData(path_images, &bytes_read);
     data_t* ptr = data;
 
