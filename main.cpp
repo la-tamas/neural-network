@@ -17,8 +17,6 @@
   #undef RAYGUI_IMPLEMENTATION
 #undef Matrix
 
-// #include "basewin.h"
-
 #define SINGLE_SOURCE_IMPL
   #include "matrix.hpp"
   #include "nn.hpp"
@@ -80,9 +78,8 @@ int wmain()
             {
                 if (nn.data_index == dset_train.count()) {
                     nn.trained++;
-                        if (nn.trained >= 3) { // TODO: parameterize number 3.
+                        if (nn.trained >= 5) {
                             ui.set_state(UI::IDLE);
-                            // TODO: ui.training = false;
                             ui.message("Model trained!");
                             break;
                     }

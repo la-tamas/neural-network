@@ -1,3 +1,4 @@
+#pragma once
 
 #include <raylib.h>
 #include <vector>
@@ -7,8 +8,6 @@
 #include "matrix.hpp"
 #include "nn.hpp"
 #include "utils.hpp"
-
-// using namespace raylib;
 
 class UI {
   public:
@@ -59,7 +58,7 @@ private:
   void _check_box(Rectangle area, const char* label, bool* active);
 
   State state = State::IDLE;
-  bool training = true; // Either we're training or testing.
+  bool training = true;
 
   NN* nn = nullptr;
   DsMinist* dset_train = nullptr;
@@ -129,7 +128,7 @@ UI::UI(NN* nn, DsMinist* dset_train, DsMinist* dset_test)
 
   // Raylib initialize.
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-  InitWindow(800, 450, "nn");
+  InitWindow(800, 450, "Neural Network");
   SetTargetFPS(120);
   MaximizeWindow();
   SetExitKey(0);

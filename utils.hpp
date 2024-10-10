@@ -4,12 +4,9 @@
 #define UTILS_HPP_INCLUDED
 
 #include <raylib.h>
-
 #include <vector>
 #include <stdlib.h>
 #include <stdint.h>
-
-//using namespace raylib;
 
 typedef Image GrayImage;
 

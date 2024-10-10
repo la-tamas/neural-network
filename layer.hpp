@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef LAYER_HPP_INCLUDED
 #define LAYER_HPP_INCLUDED
 
